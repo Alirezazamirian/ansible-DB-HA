@@ -1,0 +1,19 @@
+---
+
+- name: install PostgreSQL and related packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ POSTGRES_PKG }}"
+  tags:
+    - postgres-pkg
+
+- name: Create symbolic links for PostgreSQL binaries
+  file:
+    src: "/usr/lib/postgresql/13/bin/{{ item }}"
+    dest: "/usr/sbin/{{ item }}"
+    state: link
+  loop: "{{ lookup('fileglob', '/usr/lib/postgresql/13/bin/*') | map('basename') | list }}"
+  tags:
+    - create-symlink-postgres

@@ -1,0 +1,5 @@
+---
+
+
+POSTGRES_PKG:
+  - postgresql

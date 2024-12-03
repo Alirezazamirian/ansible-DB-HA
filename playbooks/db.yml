@@ -1,0 +1,11 @@
+---
+
+- hosts: db
+  roles:
+    - role: database
+      tags:
+        - postgres
+    - role: patroni
+      tags:
+        - patroni
+

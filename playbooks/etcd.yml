@@ -1,0 +1,7 @@
+---
+
+- hosts: etcd
+  roles:
+    - role: etcd
+      tags:
+        - etcd

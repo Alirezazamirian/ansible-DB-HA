@@ -1,0 +1,19 @@
+---
+
+- name: install etcd & dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ ETCD_PKG }}"
+  tags:
+    - etcd-pkg
+
+- name: etcd config
+  template:
+    src: etc/default/etcd
+    dest: /etc/default/etcd
+    owner: root
+    group: root
+    mode: '0755'
+

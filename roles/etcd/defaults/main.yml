@@ -1,0 +1,5 @@
+---
+
+ETCD_PKG:
+  - net-tools
+  - etcd

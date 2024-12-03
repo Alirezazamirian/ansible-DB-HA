@@ -1,0 +1,19 @@
+all:
+  hosts:
+    master_node:
+    worker_node1:
+    worker_node2:
+    worker_node3:
+
+etcd:
+  hosts:
+    worker_node1: # 192.168.56.102
+
+db:
+  hosts:
+    worker_node2: # 192.168.56.103
+    worker_node3: # 192.168.56.104
+
+lb:
+  hosts:
+    master_node: # 192.168.56.101

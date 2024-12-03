@@ -1,0 +1,8 @@
+---
+
+- name: start patroni service
+  service:
+    name: patroni
+    state: started
+    enabled: yes
+    daemon_reload: true

@@ -1,0 +1,67 @@
+---
+
+# all node except master
+- name: install python & pip
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - "{{ PATRONI_PKG }}"
+  tags:
+    - patroni-pkg
+
+# all node except master
+- name: install pip packages
+  pip:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ PIP_PKG }}"
+  tags:
+    - pip-pkg
+
+# only node2
+- name: copy patroni yaml to node2
+  template:
+    src: "etc/patroni-node2.yml.j2"
+    dest: "/etc/patroni.yml"
+    owner: root
+    group: root
+    mode: "0755"
+  when: inventory_hostname == 'worker_node2'
+  tags:
+    - patroni-node2
+
+# only node3
+- name: copy patroni yaml to node3
+  template:
+    src: "etc/patroni-node3.yml.j2"
+    dest: "/etc/patroni.yml"
+    owner: root
+    group: root
+    mode: "755"
+  when: inventory_hostname == 'worker_node3'
+  tags:
+    - patroni-node3
+
+# both node 2 and node 3
+- name: create patroni service file
+  template:
+    src: "etc/systemd/system/patroni.service"
+    dest: "/etc/systemd/system/patroni.service"
+    mode: "755"
+  tags:
+    - patroni-service
+
+# both node 2 and node 3
+- name: create patroni directory
+  file:
+    path: "/data/patroni"
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: "0755"
+  tags:
+    - patroni-dir
+
+

@@ -1,0 +1,5 @@
+---
+
+HAPROXY_PKGS_LIST:
+  - haproxy
+  - net-tools
