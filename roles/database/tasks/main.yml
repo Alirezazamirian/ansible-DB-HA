@@ -9,11 +9,8 @@
   tags:
     - postgres-pkg
 
-- name: Create symbolic links for PostgreSQL binaries
-  file:
-    src: "/usr/lib/postgresql/13/bin/{{ item }}"
-    dest: "/usr/sbin/{{ item }}"
-    state: link
-  loop: "{{ lookup('fileglob', '/usr/lib/postgresql/13/bin/*') | map('basename') | list }}"
+- name: create symlink for postgresql
+  shell: |
+    ln -s /usr/lib/postgresql/13/bin/* /usr/bin/
   tags:
-    - create-symlink-postgres
+    - postgres-symlink
